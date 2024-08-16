@@ -1,10 +1,16 @@
-import { Route , BrowserRouterProps  , Link, createBrowserRouter  } from "react-router-dom";
-
+import {createBrowserRouter  } from "react-router-dom";
+import Layout from "./layouts/Layout";
+import Products from "./views/Products";
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <div> hello world !</div>
-
+        element: <Layout/>,
+        children : [
+            {
+                path : 'productos',
+                element: <Products/>
+            }
+        ]
     }
 ])
