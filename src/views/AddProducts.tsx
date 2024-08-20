@@ -1,25 +1,33 @@
-import Form from "../components/Form"
+import Formulario from "../components/Formulario"
+import { Form , Link } from "react-router-dom"
 
-export default function addProducts() {
+
+export async function action () { 
+  console.log('desde actions...')
+
+  return {}
+}
+
+export default function AddProducts() {
+
   return (
 
     <div className=" bg-white rounded-2xl p-6">
 
-      <div className=" flex justify-between px-4">
-        <h1 className=" text-gray-700 font-black text-3xl" > Registrar Productos</h1>
+      <div className=" flex justify-between  ">
+        <h1 className=" text-gray-700 font-black text-3xl p-2 " > Registrar Productos</h1>
 
-        <input 
-          type="button" 
-          value="Inicio" 
-          className="bg-slate-800 text-white rounded-xl px-4 font-black uppercase hover:bg-slate-400"
-        />
+        <Link 
+          to="/" 
+          className="bg-slate-800 text-white rounded-xl font-black uppercase hover:bg-slate-400 content-center p-2  "
+        > Inicio </Link>
 
       </div>
         
       
-      <form className="p-3">
+      <Form method="post" className="p-3">
           
-        <Form/>
+        <Formulario />
 
         <input 
           type="submit" 
@@ -27,7 +35,7 @@ export default function addProducts() {
           className=" mt-10 w-full bg-slate-800 text-white rounded-xl p-2 font-black uppercase hover:bg-slate-400 "  
         />
 
-      </form>
+      </Form>
 
     </div>
 
