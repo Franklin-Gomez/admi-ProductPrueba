@@ -1,6 +1,7 @@
 import Formulario from "../components/Formulario"
 import { ActionFunctionArgs, Form , Link , useActionData } from "react-router-dom"
 import Errormessage from "../components/Errormessage"
+import { addProduct } from "../API/ProducService";
 
 // funcion para procesar los datos
 export async function action ( { request } : ActionFunctionArgs) { 
@@ -17,7 +18,7 @@ export async function action ( { request } : ActionFunctionArgs) {
     return error
   }
 
-
+  await addProduct( data )
 
   return {}
 }
