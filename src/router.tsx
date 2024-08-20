@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
                 path : '/',
                 element: <Products/>
             },
-            {
+            { 
                 path : 'productos/agregar',
                 element : <AddProducts/>,
                 action : action

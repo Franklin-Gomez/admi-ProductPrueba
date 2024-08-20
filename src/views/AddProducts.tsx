@@ -1,14 +1,30 @@
 import Formulario from "../components/Formulario"
-import { Form , Link } from "react-router-dom"
+import { ActionFunctionArgs, Form , Link , useActionData } from "react-router-dom"
+import Errormessage from "../components/Errormessage"
+
+// funcion para procesar los datos
+export async function action ( { request } : ActionFunctionArgs) { 
+
+  const data = Object.fromEntries( await request.formData() )
+
+  let error = '';
+
+  // validamos los campos
+  if( Object.values(data).includes('') ){
+
+    error = 'llena los campos cachon'
+
+    return error
+  }
 
 
-export async function action () { 
-  console.log('desde actions...')
 
   return {}
 }
 
 export default function AddProducts() {
+
+  const errors = useActionData() as string
 
   return (
 
@@ -23,9 +39,11 @@ export default function AddProducts() {
         > Inicio </Link>
 
       </div>
-        
+
+
+      {errors &&   <Errormessage> {errors} </Errormessage>  }
       
-      <Form method="post" className="p-3">
+      <Form method="POST" className="p-3">
           
         <Formulario />
 
