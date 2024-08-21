@@ -5,9 +5,20 @@ type dataProps = {
     [k: string]: FormDataEntryValue;
 }
 
-export const addProduct = ( data  : dataProps ) => { 
+export const addProduct = async ( data  : dataProps ) => { 
 
-    console.log( data )
+    const url = "http://localhost:4000/api/products/"
+
+    try {   
+
+        const response  =  await axios.post( url , data)
+        console.log( response )
+
+    } catch (error) {
+
+        console.log( error )
+
+    }
 
     return {}
 }

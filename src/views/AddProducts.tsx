@@ -8,24 +8,22 @@ export async function action ( { request } : ActionFunctionArgs) {
 
   const data = Object.fromEntries( await request.formData() )
 
-  let error = '';
+  let error = "";
 
   // validamos los campos
   if( Object.values(data).includes('') ){
-
     error = 'llena los campos cachon'
-
     return error
   }
-
+  
   await addProduct( data )
 
-  return {}
+  return error
 }
 
 export default function AddProducts() {
 
-  const errors = useActionData() as string
+  const errors = useActionData()  as string
 
   return (
 
@@ -42,7 +40,7 @@ export default function AddProducts() {
       </div>
 
 
-      {errors &&   <Errormessage> {errors} </Errormessage>  }
+      { errors  &&  <Errormessage> {errors} </Errormessage>  }
       
       <Form method="POST" className="p-3">
           
