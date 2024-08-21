@@ -1,24 +1,37 @@
 import axios from "axios"
+import { DraftproductSchema, productSchema } from "../Schema";
+import { safeParse } from "valibot";
 
 
 type dataProps = { 
     [k: string]: FormDataEntryValue;
 }
 
-export const addProduct = async ( data  : dataProps ) => { 
+export const addProduct = async ( info  : dataProps ) => { 
 
-    const url = "http://localhost:4000/api/products/"
+    try {
+        
+        const resultado = safeParse( DraftproductSchema , { 
+            name : info.name,
+            price : +info.price
+        })
+        
+        if( resultado.success ) {          
+            
+            const url = "http://localhost:4000/api/products/"
+            
+            await axios.post( url , info)
 
-    try {   
+        } else { 
 
-        const response  =  await axios.post( url , data)
-        console.log( response )
+            throw new Error('Datos no validos')
+        
+        }
+
 
     } catch (error) {
-
+        
         console.log( error )
 
     }
-
-    return {}
 }
