@@ -1,5 +1,5 @@
 import Formulario from "../components/Formulario"
-import { ActionFunctionArgs, Form , Link , useActionData, useNavigate } from "react-router-dom"
+import { ActionFunctionArgs, Form , Link , useActionData, redirect } from "react-router-dom"
 import Errormessage from "../components/Errormessage"
 import { addProduct } from "../API/ProducService";
 
@@ -13,17 +13,20 @@ export async function action ( { request } : ActionFunctionArgs) {
   // validamos los campos
   if( Object.values(data).includes('') ){
     error = 'llena los campos cachon'
-    return error
   }
   
+  if( error.length ) { 
+    return error
+  }
+
   await addProduct( data )
 
-  return error
+  return redirect('/')
 }
 
 export default function AddProducts() {
 
-  const errors = useActionData()  as string
+  const errors = useActionData() as string
 
   return (
 

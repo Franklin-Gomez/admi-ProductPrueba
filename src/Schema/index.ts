@@ -8,11 +8,16 @@ export const DraftproductSchema = v.object({
 export const productSchema = v.object({
     name : v.string(),
     price: v.number(),
-    availability : v.boolean(),
-    createdAt : v.string(),
-    updatedAt : v.string()
+    availability : v.boolean()
 })
+
+export const productsSchema = v.array( productSchema )
+
+
 
 export type DraftproductType = v.InferOutput< typeof DraftproductSchema >
 
 export type productType = v.InferOutput< typeof productSchema >
+
+export type productsType = v.InferOutput< typeof productsSchema >
+

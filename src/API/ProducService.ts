@@ -1,5 +1,5 @@
 import axios from "axios"
-import { DraftproductSchema, productSchema } from "../Schema";
+import { DraftproductSchema , productsSchema, productsType } from "../Schema";
 import { safeParse } from "valibot";
 
 
@@ -34,4 +34,34 @@ export const addProduct = async ( info  : dataProps ) => {
         console.log( error )
 
     }
+}
+
+export const getAllProduct = async () => { 
+
+
+    try {
+
+        const url = "http://localhost:4000/api/products/"
+
+        const { data } = await  axios( url )
+
+        console.log( data.data )
+
+        const validacion = safeParse( productsSchema , data.data ) 
+
+        if( validacion.success ) { 
+
+            return validacion.output
+
+        } else { 
+
+            throw new Error('Hubo un error')
+
+        }
+
+    } catch (error) {
+        console.log( error)
+    }
+
+
 }
