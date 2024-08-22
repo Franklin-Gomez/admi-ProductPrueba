@@ -1,5 +1,10 @@
+import {  productType } from "../Schema"
 
-export default function Formulario() {
+type FormularioType = { 
+    producto? : productType
+}
+
+export default function Formulario( { producto } : FormularioType) {
     return (
         <div className=" flex flex-col gap-3  ">
 
@@ -12,6 +17,7 @@ export default function Formulario() {
                     className="bg-gray-100 p-2 rounded-xl"
                     name="name"
                     id="name"
+                    defaultValue={producto?.name}
                 />  
 
             </div>
@@ -25,6 +31,7 @@ export default function Formulario() {
                     className="bg-gray-100 p-2 rounded-xl"
                     name="price"
                     id="price"
+                    defaultValue={producto?.price}
                 />
 
             </div>

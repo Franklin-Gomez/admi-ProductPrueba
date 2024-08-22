@@ -1,6 +1,7 @@
 import { Link , Form, LoaderFunctionArgs, useLoaderData } from "react-router-dom"
 import Formulario from "../components/Formulario"
 import { getSingleProduct } from "../API/ProducService"
+import { productType } from "../Schema"
 
 export const loader = async ( { params } : LoaderFunctionArgs) => { 
 
@@ -18,7 +19,7 @@ export const loader = async ( { params } : LoaderFunctionArgs) => {
 
 export default function EditarProducts() {
 
-    const product = useLoaderData()
+    const product = useLoaderData() as productType
 
     const availabilityOptions = [
         { name : "Disponible" , value : true },
@@ -42,7 +43,9 @@ export default function EditarProducts() {
 
             <Form>
 
-                <Formulario/>
+                <Formulario
+                    producto={product}
+                />
 
                 <div className="flex flex-col gap-2">
                     <label htmlFor="availability" className="font-bold mt-4"> Disponibilidad </label>
@@ -51,12 +54,13 @@ export default function EditarProducts() {
                         id="availability"
                         name="availability"
                         className="bg-gray-100 p-2 rounded-xl"
+                        defaultValue={ product.availability.toString() }
                     >
 
                        { availabilityOptions.map(( availability ) => ( 
                             <option 
                                 value={availability.value.toString()}
-                                key={availability.name}    
+                                key={availability.name}
                             >{availability.name}</option>
                         ))}
 
