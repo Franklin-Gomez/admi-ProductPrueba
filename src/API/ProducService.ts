@@ -1,5 +1,5 @@
 import axios from "axios"
-import { DraftproductSchema , productsSchema } from "../Schema";
+import { DraftproductSchema , productSchema, productsSchema , productType  } from "../Schema";
 import { safeParse } from "valibot";
 
 
@@ -63,4 +63,23 @@ export const getAllProduct = async () => {
     }
 
 
+}
+
+export const getSingleProduct = async ( id : productType['id']) => { 
+
+    try {
+
+        const url = `http://localhost:4000/api/products/${id}`
+
+        const {data} = await axios( url )
+
+        const resultado = safeParse( productSchema , data.data )
+
+        if( resultado.success ) { 
+            return resultado.output 
+        }
+        
+    } catch (error) {
+        console.log( error )
+    }
 }
