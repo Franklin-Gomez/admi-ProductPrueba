@@ -1,7 +1,7 @@
-import { Link, useLoaderData, useNavigate } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 import { getAllProduct } from "../API/ProducService"
 import { productsType } from "../Schema"
-import { Form } from "react-router-dom"
+import ProductDetails from "../components/ProductDetails"
 
 
 export const loader = async () => { 
@@ -16,7 +16,7 @@ export default function Products() {
 
     const products = useLoaderData() as productsType
     
-    const navigate = useNavigate()
+
 
     return (
         <div className="bg-white rounded-2xl p-6">
@@ -43,45 +43,11 @@ export default function Products() {
                     <tbody>
 
                         { products.map(( product )  => (
-
-                            <tr className="border-b text-center" >
-
-                                <td className="p-3 text-lg text-gray-800">
-                                    {product.name}
-                                </td>
-
-                                <td className="p-3 text-lg text-gray-800">
-                                    {product.price}
-                                </td>
-
-                                <td className="p-3 text-lg text-gray-800">
-                                    {product.availability ? 'true' : 'false'}
-                                </td>
-
-                                <td className="p-3 text-lg text-gray-800 ">
-                                    
-                                    <div className="flex justify-evenly">
-
-                                        <button 
-                                            onClick={() => navigate(`/productos/editar/${product.id}`)}
-                    
-                                            className="bg-slate-800 text-white rounded-md font-medium uppercase  hover:bg-slate-400 content-center p-2"
-                                        > { "Editar" } </button>
-
-                                        <Form>
-                                            <input 
-                                                type="submit" 
-                                                value={'eliminar Producto'} 
-                                                className="bg-red-800 text-white rounded-md  font-medium uppercase hover:bg-red-400 content-center p-2"
-                                            />
-                                        </Form>
-                                        
-                                    </div>
-
-
-                                </td>
-
-                            </tr> 
+                            
+                            <ProductDetails
+                                product={product}
+                                key={product.id}
+                            />
 
                         ))}
 
