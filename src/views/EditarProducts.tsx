@@ -1,10 +1,10 @@
-import { Link , Form, LoaderFunctionArgs, useLoaderData } from "react-router-dom"
+import { Link , Form, LoaderFunctionArgs, useLoaderData, ActionFunctionArgs, useActionData } from "react-router-dom"
 import Formulario from "../components/Formulario"
-import { getSingleProduct } from "../API/ProducService"
-import { productType } from "../Schema"
+import { getSingleProduct, updateProduct } from "../API/ProducService"
+import { productSchema, productType } from "../Schema"
+import Errormessage from "../components/Errormessage"
 
 export const loader = async ( { params } : LoaderFunctionArgs) => { 
-
 
     if( params.id !==  undefined ) { 
 
@@ -17,9 +17,37 @@ export const loader = async ( { params } : LoaderFunctionArgs) => {
     return{}
 }
 
+export const action = async ( { request , params } : ActionFunctionArgs) =>  { 
+
+    const data =  Object.fromEntries( await request.formData() )
+
+    let error = '';
+
+    if( Object.values(data ).includes('') ) { 
+
+        error = "llena todos los campos cachon hpta"
+        return error
+
+    }
+
+    if(error.length) { 
+        return error
+    }
+
+    if( params.id !== undefined) { 
+        await updateProduct( data  , +params.id)
+    }
+
+    return data
+}
+
 export default function EditarProducts() {
 
     const product = useLoaderData() as productType
+
+    const error = useActionData() as String
+
+    
 
     const availabilityOptions = [
         { name : "Disponible" , value : true },
@@ -41,13 +69,16 @@ export default function EditarProducts() {
 
             </div>
 
-            <Form>
+            { error && <Errormessage>{error}</Errormessage>}
+
+            <Form method="POST">
 
                 <Formulario
                     producto={product}
                 />
 
                 <div className="flex flex-col gap-2">
+
                     <label htmlFor="availability" className="font-bold mt-4"> Disponibilidad </label>
 
                     <select
@@ -66,7 +97,6 @@ export default function EditarProducts() {
 
                     </select>
 
-
                 </div>
 
                 <input 
@@ -76,8 +106,6 @@ export default function EditarProducts() {
                 />
 
             </Form>
-
-
 
         </div>
 

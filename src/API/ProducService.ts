@@ -4,7 +4,7 @@ import { safeParse } from "valibot";
 
 
 type dataProps = { 
-    [k: string]: FormDataEntryValue;
+    [k: string]: FormDataEntryValue
 }
 
 export const addProduct = async ( info  : dataProps ) => { 
@@ -82,4 +82,29 @@ export const getSingleProduct = async ( id : productType['id']) => {
     } catch (error) {
         console.log( error )
     }
+}
+
+export const updateProduct = async ( data   : dataProps   , id : productType['id']) => { 
+
+    try {
+
+        const resultado = safeParse( productSchema , { 
+            
+            id : id ,
+            name : data.name,
+            price : +data.price,
+            availability : () => data.availability == 'true' ?  true : false
+    
+        })
+
+        console.log( resultado )
+
+        
+    } catch (error) {
+
+        console.log(error)
+
+    }
+
+    return {}
 }
