@@ -6,6 +6,7 @@ export const DraftproductSchema = v.object({
 })
 
 export const productSchema = v.object({
+    id : v.number(),
     name : v.string(),
     price: v.number(),
     availability : v.boolean()

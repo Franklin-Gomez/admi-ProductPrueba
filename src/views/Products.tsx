@@ -1,13 +1,12 @@
-import { Link, useLoaderData } from "react-router-dom"
+import { Link, useLoaderData, useNavigate } from "react-router-dom"
 import { getAllProduct } from "../API/ProducService"
 import { productsType } from "../Schema"
+import { Form } from "react-router-dom"
 
 
 export const loader = async () => { 
 
     const data = await getAllProduct()
-
-    console.log( data )
 
     return data
 }
@@ -16,9 +15,8 @@ export const loader = async () => {
 export default function Products() {
 
     const products = useLoaderData() as productsType
-
-    console.log( products )
     
+    const navigate = useNavigate()
 
     return (
         <div className="bg-white rounded-2xl p-6">
@@ -44,20 +42,48 @@ export default function Products() {
                     </thead>
                     <tbody>
 
-                        <tr className="border-b ">
-                            <td className="p-3 text-lg text-gray-800">
+                        { products.map(( product )  => (
 
-                            </td>
-                            <td className="p-3 text-lg text-gray-800">
+                            <tr className="border-b text-center" >
 
-                            </td>
-                            <td className="p-3 text-lg text-gray-800">
+                                <td className="p-3 text-lg text-gray-800">
+                                    {product.name}
+                                </td>
+
+                                <td className="p-3 text-lg text-gray-800">
+                                    {product.price}
+                                </td>
+
+                                <td className="p-3 text-lg text-gray-800">
+                                    {product.availability ? 'true' : 'false'}
+                                </td>
+
+                                <td className="p-3 text-lg text-gray-800 ">
+                                    
+                                    <div className="flex justify-evenly">
+
+                                        <button 
+                                            onClick={() => navigate(`/productos/editar/${product.id}`)}
                     
-                            </td>
-                            <td className="p-3 text-lg text-gray-800 ">
-                            
-                            </td>
-                        </tr> 
+                                            className="bg-slate-800 text-white rounded-md font-medium uppercase  hover:bg-slate-400 content-center p-2"
+                                        > { "Editar" } </button>
+
+                                        <Form>
+                                            <input 
+                                                type="submit" 
+                                                value={'eliminar Producto'} 
+                                                className="bg-red-800 text-white rounded-md  font-medium uppercase hover:bg-red-400 content-center p-2"
+                                            />
+                                        </Form>
+                                        
+                                    </div>
+
+
+                                </td>
+
+                            </tr> 
+
+                        ))}
 
                     </tbody>
                 </table>

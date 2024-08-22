@@ -1,5 +1,5 @@
 import axios from "axios"
-import { DraftproductSchema , productsSchema, productsType } from "../Schema";
+import { DraftproductSchema , productsSchema } from "../Schema";
 import { safeParse } from "valibot";
 
 
@@ -45,7 +45,6 @@ export const getAllProduct = async () => {
 
         const { data } = await  axios( url )
 
-        console.log( data.data )
 
         const validacion = safeParse( productsSchema , data.data ) 
 
