@@ -89,21 +89,22 @@ export const updateProduct = async ( info   : dataProps   , id : productType['id
 
     try {
 
-        const url = `http://localhost:4000/api/products/${id}`
-
+        // datos que estamos enviando
         const inputValidation = safeParse( productSchema , { 
             
             id : id ,
             name : info.name,
             price : +info.price,
             availability : stringToBolean( info.availability )
-    
-        })
-
-        if ( inputValidation.success ) {
-
-            await axios.put( url , inputValidation.output  )
             
+        })
+        
+        if ( inputValidation.success ) {
+            
+            // actualizacion de la base de datos
+            const url = `http://localhost:4000/api/products/${id}`
+            await axios.put( url , inputValidation.output  )
+
         }
 
         
@@ -114,4 +115,23 @@ export const updateProduct = async ( info   : dataProps   , id : productType['id
     }
 
     return {}
+}
+
+export const deleteProduct = async ( id : productType['id']) => { 
+
+    try {
+
+        const url = `http://localhost:4000/api/products/${id}`;
+
+        const {data} = await axios.delete( url )
+
+        return data
+
+    } catch (error) {
+
+        console.log( error )
+
+    }
+
+
 }

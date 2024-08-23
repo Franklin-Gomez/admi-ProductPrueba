@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom"
+import { ActionFunctionArgs, Link, useLoaderData } from "react-router-dom"
 import { getAllProduct } from "../API/ProducService"
 import { productsType } from "../Schema"
 import ProductDetails from "../components/ProductDetails"
@@ -15,8 +15,6 @@ export const loader = async () => {
 export default function Products() {
 
     const products = useLoaderData() as productsType
-    
-
 
     return (
         <div className="bg-white rounded-2xl p-6">
