@@ -133,5 +133,19 @@ export const deleteProduct = async ( id : productType['id']) => {
 
     }
 
+}
 
+export const updateAvailability = async ( id : productType['id']) => { 
+
+    try {
+        
+        const url = `http://localhost:4000/api/products/${id}`
+
+        const { data } = await axios.patch( url )
+
+        return  data.availability 
+
+    } catch (error) {
+        console.log( error )
+    }
 }

@@ -1,7 +1,7 @@
 import {createBrowserRouter  } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import AddProducts, { action } from "./views/AddProducts";
-import Products , { loader as productLoader } from "./views/Products";
+import Products , { loader as productLoader , action as ProductAction  } from "./views/Products";
 import EditarProducts , { loader as editarLoader , action as editarAction } from "./views/EditarProducts";
 import { action as DeleteProductsAction } from "./views/deleteProducts";
 
@@ -15,7 +15,8 @@ export const router = createBrowserRouter([
             {
                 index : true,
                 element: <Products/>,
-                loader : productLoader
+                loader : productLoader,
+                action : ProductAction
             },
             { 
                 path : 'productos/agregar',
