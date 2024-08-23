@@ -1,6 +1,7 @@
 import axios from "axios"
 import { DraftproductSchema , productSchema, productsSchema , productType  } from "../Schema";
 import { safeParse } from "valibot";
+import { stringToBolean } from "../utils";
 
 
 type dataProps = { 
@@ -88,16 +89,16 @@ export const updateProduct = async ( data   : dataProps   , id : productType['id
 
     try {
 
-        const resultado = safeParse( productSchema , { 
+        const inputValidation = safeParse( productSchema , { 
             
             id : id ,
             name : data.name,
             price : +data.price,
-            availability : () => data.availability == 'true' ?  true : false
+            availability : stringToBolean( data.availability )
     
         })
 
-        console.log( resultado )
+        console.log( inputValidation )
 
         
     } catch (error) {
