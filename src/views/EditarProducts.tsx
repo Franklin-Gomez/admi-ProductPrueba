@@ -1,7 +1,7 @@
-import { Link , Form, LoaderFunctionArgs, useLoaderData, ActionFunctionArgs, useActionData } from "react-router-dom"
+import { Link , Form, LoaderFunctionArgs, useLoaderData, ActionFunctionArgs, useActionData, redirect } from "react-router-dom"
 import Formulario from "../components/Formulario"
 import { getSingleProduct, updateProduct } from "../API/ProducService"
-import { productSchema, productType } from "../Schema"
+import { productType } from "../Schema"
 import Errormessage from "../components/Errormessage"
 
 export const loader = async ( { params } : LoaderFunctionArgs) => { 
@@ -38,7 +38,7 @@ export const action = async ( { request , params } : ActionFunctionArgs) =>  {
         await updateProduct( data  , +params.id)
     }
 
-    return data
+    return redirect('/')
 }
 
 export default function EditarProducts() {
@@ -46,8 +46,6 @@ export default function EditarProducts() {
     const product = useLoaderData() as productType
 
     const error = useActionData() as String
-
-    
 
     const availabilityOptions = [
         { name : "Disponible" , value : true },

@@ -85,20 +85,26 @@ export const getSingleProduct = async ( id : productType['id']) => {
     }
 }
 
-export const updateProduct = async ( data   : dataProps   , id : productType['id']) => { 
+export const updateProduct = async ( info   : dataProps   , id : productType['id']) => { 
 
     try {
+
+        const url = `http://localhost:4000/api/products/${id}`
 
         const inputValidation = safeParse( productSchema , { 
             
             id : id ,
-            name : data.name,
-            price : +data.price,
-            availability : stringToBolean( data.availability )
+            name : info.name,
+            price : +info.price,
+            availability : stringToBolean( info.availability )
     
         })
 
-        console.log( inputValidation )
+        if ( inputValidation.success ) {
+
+            await axios.put( url , inputValidation.output  )
+            
+        }
 
         
     } catch (error) {
